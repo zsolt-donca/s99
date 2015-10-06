@@ -5,7 +5,7 @@ object P41 extends App {
   import P40._
 
   def goldbachList(range: Seq[Int]): Seq[(Int, Int, Int)] = {
-    range.view.filter(num => num >= 4 && num % 2 == 0).map(num => (num, goldbachConjecture(num))).map { case (a, (b, c)) => (a, b, c) }
+    range.view.map(num => (num, goldbachConjecture(num))).collect { case (a, Some((b, c))) => (a, b, c) }
   }
 
   //noinspection ScalaUnnecessaryParentheses

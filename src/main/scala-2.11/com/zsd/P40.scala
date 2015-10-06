@@ -8,8 +8,11 @@ object P40 extends App {
     (num > 1) && !(2 to sqrt(num).asInstanceOf[Int]).exists(i => num % i == 0)
   }
 
-  def goldbachConjecture(num: Int): (Int, Int) = {
-    (2 to (num - 2)).map(x => (x, num - x)).find { case (a, b) => isPrime(a) && isPrime(b) }.get
+  def goldbachConjecture(num: Int): Option[(Int, Int)] = {
+    if (num >= 4 && num % 2 == 0)
+      (2 to (num - 2)).map(x => (x, num - x)).find { case (a, b) => isPrime(a) && isPrime(b) }
+    else
+      None
   }
 
   implicit class Goldbach(num: Int) {

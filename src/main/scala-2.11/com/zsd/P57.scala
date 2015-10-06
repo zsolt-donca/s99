@@ -25,22 +25,22 @@ object P57 extends App {
   }
 
   val t1 = End.addValue(2)
-  println(t1)
+  assert(t1 == Node(2))
 
   val t2 = t1.addValue(3)
-  println(t2)
+  assert(t2 == Node(2, End, Node(3)))
 
   val t3 = t2.addValue(0)
-  println(t3)
+  assert(t3 == Node(2, Node(0), Node(3)))
 
   val t4 = fromList(List(3, 2, 5, 7, 1))
-  println(t4)
+  assert(t4 == Node(3, Node(2, Node(1), End), Node(5, End, Node(7))))
 
   import P56._
 
   val r5 = fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric
-  println(r5)
+  assert(r5)
 
   val r6 = fromList(List(3, 2, 5, 7, 4)).isSymmetric
-  println(r6)
+  assert(!r6)
 }

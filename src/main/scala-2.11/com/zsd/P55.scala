@@ -3,19 +3,27 @@ package com.zsd
 import java.lang.Math.abs
 
 object P55 extends App {
-
   def cBalanced[T](nodes: Int, value: T): Seq[Tree[T]] = {
-    if (nodes <= 0)
+    generateBinaryTree(nodes, value) {
+      nodes => {
+        val nodesLeft = nodes - 1
+        for (leftSize <- (nodesLeft / 2 - 1) to nodesLeft / 2 + 1;
+             rightSize = nodesLeft - leftSize
+             if abs(leftSize - rightSize) <= 1
+        ) yield (leftSize, rightSize)
+      }
+    }
+  }
+
+  def generateBinaryTree[T](num: Int, value: T)(f: (Int => Seq[(Int, Int)])): Seq[Tree[T]] = {
+    if (num <= 0)
       Seq(End)
-    else if (nodes == 1)
+    else if (num == 1)
       Seq(Node(value))
     else {
-      val nodesLeft = nodes - 1
-      for (leftSize <- (nodesLeft / 2 - 1) to nodesLeft / 2 + 1;
-           rightSize = nodesLeft - leftSize
-           if abs(leftSize - rightSize) <= 1;
-           leftTree <- cBalanced(leftSize, value);
-           rightTree <- cBalanced(rightSize, value)
+      for ((leftNum, rightNum) <- f(num);
+           leftTree <- generateBinaryTree(leftNum, value)(f);
+           rightTree <- generateBinaryTree(rightNum, value)(f)
       ) yield Node(value, leftTree, rightTree)
     }
   }

@@ -2,19 +2,17 @@ package com.zsd
 
 object P59 extends App {
 
+  import P55._
+
   def hBalanced[T](height: Int, value: T): Seq[Tree[T]] = {
-    if (height <= 0)
-      Seq(End)
-    else if (height == 1)
-      Seq(Node(value))
-    else {
-      val heightLeft = height - 1
-      for (leftSize <- (heightLeft - 1) to heightLeft;
-           rightSize <- (heightLeft - 1) to heightLeft
-           if leftSize == heightLeft || rightSize == heightLeft;
-           leftTree <- hBalanced(leftSize, value);
-           rightTree <- hBalanced(rightSize, value)
-      ) yield Node(value, leftTree, rightTree)
+    generateBinaryTree(height, value) {
+      height => {
+        for (heightLeft <- Seq(height - 1);
+             leftSize <- (heightLeft - 1) to heightLeft;
+             rightSize <- (heightLeft - 1) to heightLeft
+             if leftSize == heightLeft || rightSize == heightLeft)
+          yield (leftSize, rightSize)
+      }
     }
   }
 

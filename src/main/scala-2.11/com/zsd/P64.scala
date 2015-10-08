@@ -6,28 +6,14 @@ object P64 extends TreeVisualizingApp {
 
   implicit class TreePositioning1[T](val tree: Tree[T]) {
 
-    private def inOrder(tree: Tree[T]): Seq[Tree[T]] = {
-      tree match {
-        case Node(_, left, right) => inOrder(left) ++ Seq(tree) ++ inOrder(right)
-        case End => Seq()
-      }
-    }
+    import TreeOperations._
 
-    private def treeDepth(tree: Tree[T], depth: Int): Seq[(Tree[T], Int)] = {
-      tree match {
-        case Node(_, left, right) => treeDepth(left, depth + 1) ++ Seq((tree, depth)) ++ treeDepth(right, depth + 1)
-        case End => Seq()
-      }
-    }
-
-    def inOrder: Seq[Tree[T]] = inOrder(tree)
-
-    val nodesInOrder: Map[Tree[T], Int] = (inOrder(tree) zip Stream.from(1)).toMap
-    val treeDepths: Map[Tree[T], Int] = treeDepth(tree, 1).toMap
+    val nodesInOrder: Map[Tree[T], Int] = (tree.inOrder zip Stream.from(1)).toMap
+    val treeDepths: Map[Tree[T], Int] = tree.depthMap
 
     private def layoutBinaryTree(tree: Tree[T]): Tree[T] = {
       tree match {
-        case Node(value, left, right) => Node(value, layoutBinaryTree(left), layoutBinaryTree(right), nodesInOrder(tree), treeDepths(tree))
+        case Node(value, left, right) => Node(value, layoutBinaryTree(left), layoutBinaryTree(right), nodesInOrder(tree), treeDepths(tree) + 1)
         case End => End
       }
     }

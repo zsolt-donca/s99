@@ -5,7 +5,7 @@ import java.awt.{BasicStroke, Color, Graphics2D, RenderingHints}
 
 class TreeVisualizer(val treeNode: Tree[Char]) {
 
-  import P64._
+  import TreeOperations._
 
   val gridSize = 50
 

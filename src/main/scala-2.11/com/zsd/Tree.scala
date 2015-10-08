@@ -22,7 +22,9 @@ case class TreeNode[+T](value: T, left: Tree[T], right: Tree[T], position: Optio
   def hasPosition: Boolean = position.isDefined
 }
 
-case class Position(x: Int, y: Int)
+case class Position(x: Int, y: Int) {
+  def +(diff: Position) = Position(x + diff.x, y + diff.y)
+}
 
 case object End extends Tree[Nothing] {
   override def toString = "."

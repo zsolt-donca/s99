@@ -14,7 +14,13 @@ abstract class TreeVisualizingApp extends SimpleSwingApplication {
     background = Color.white
     preferredSize = new Dimension(700, 500)
 
-    val visualizer = new TreeVisualizer(treeWithLayout)
+    import P65.TreePositioning2
+    import TreeOperations._
+
+    val tree = if (treeWithLayout.inOrder.exists { case NodeWithPosition(_, _, _, _, _) => true }) treeWithLayout
+    else treeWithLayout.layoutBinaryTree2
+
+    val visualizer = new TreeVisualizer(tree)
 
     override def paintComponent(g: Graphics2D) = {
       super.paintComponent(g)

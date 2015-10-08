@@ -13,7 +13,7 @@ object P64 extends TreeVisualizingApp {
 
     private def layoutBinaryTree(tree: Tree[T]): Tree[T] = {
       tree match {
-        case Node(value, left, right) => Node(value, layoutBinaryTree(left), layoutBinaryTree(right), nodesInOrder(tree), treeDepths(tree) + 1)
+        case Node(value, left, right) => NodeWithPosition(value, layoutBinaryTree(left), layoutBinaryTree(right), nodesInOrder(tree), treeDepths(tree) + 1)
         case End => End
       }
     }

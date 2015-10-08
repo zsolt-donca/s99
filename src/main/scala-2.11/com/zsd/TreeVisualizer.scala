@@ -10,12 +10,12 @@ class TreeVisualizer(val treeNode: Tree[Char]) {
   val gridSize = 50
 
   val nodes: Seq[Tree[Any]] = treeNode.inOrder
-  val treeNodes: Seq[TreeNode[Any]] = nodes.collect { case treeNode: TreeNode[Any] if treeNode.x >= 0 || treeNode.y >= 0 => treeNode }
-  val xCoordinates: Seq[Int] = treeNodes.map(_.x)
+  val treeNodes: Seq[(TreeNode[Any], Position)] = nodes.collect { case treeNode: TreeNode[Any] if treeNode.hasPosition => (treeNode, treeNode.position.get) }
+  val xCoordinates: Seq[Int] = treeNodes.map(_._2.x)
   val minX = xCoordinates.min
   val maxX = xCoordinates.max
 
-  val yCoordinates: Seq[Int] = treeNodes.map(_.y)
+  val yCoordinates: Seq[Int] = treeNodes.map(_._2.y)
   val minY = yCoordinates.min
   val maxY = yCoordinates.max
 
@@ -58,9 +58,9 @@ class TreeVisualizer(val treeNode: Tree[Char]) {
     def drawConnections(): Unit = {
       def drawConnections(node: Tree[_], parent: Option[Tree[_]]): Unit = {
         node match {
-          case TreeNode(_, left, right, x, y) =>
+          case NodeWithPosition(_, left, right, x, y) =>
             parent match {
-              case Some(TreeNode(_, _, _, px, py)) =>
+              case Some(NodeWithPosition(_, _, _, px, py)) =>
                 g.drawLine(x.toScreenX, y.toScreenY, px.toScreenX, py.toScreenY)
               case _ =>
             }
@@ -75,9 +75,9 @@ class TreeVisualizer(val treeNode: Tree[Char]) {
 
     def drawNodes(): Unit = {
       g.setStroke(new BasicStroke(1))
-      for (node <- treeNodes) {
-        val xPos = node.x.toScreenX
-        val yPos = node.y.toScreenY
+      for ((node, position) <- treeNodes) {
+        val xPos = position.x.toScreenX
+        val yPos = position.y.toScreenY
         val radius = 16
         val halfRadius = radius / 2
 

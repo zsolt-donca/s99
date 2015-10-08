@@ -16,7 +16,7 @@ object P65 extends TreeVisualizingApp {
         case Node(value, left, right) =>
           val y = treeDepths(tree)
           val diff = 1 << (height - y - 1)
-          Node(value, layoutBinaryTree2(left, parentPos - diff), layoutBinaryTree2(right, parentPos + diff), parentPos - 1, y + 1)
+          NodeWithPosition(value, layoutBinaryTree2(left, parentPos - diff), layoutBinaryTree2(right, parentPos + diff), parentPos - 1, y + 1)
         case End => End
       }
     }

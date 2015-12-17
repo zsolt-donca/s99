@@ -1,4 +1,4 @@
-package com.zsd
+package com.zsd.s99.bintrees
 
 import java.awt.{Color, Dimension, Graphics2D}
 

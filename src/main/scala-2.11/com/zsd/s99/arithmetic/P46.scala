@@ -1,4 +1,4 @@
-package com.zsd
+package com.zsd.s99.arithmetic
 
 object P46 extends App {
 

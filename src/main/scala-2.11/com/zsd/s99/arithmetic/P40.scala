@@ -1,4 +1,4 @@
-package com.zsd
+package com.zsd.s99.arithmetic
 
 import java.lang.Math.sqrt
 

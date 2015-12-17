@@ -1,4 +1,4 @@
-package com.zsd
+package com.zsd.s99.bintrees
 
 object P56 extends App {
 

@@ -1,6 +1,4 @@
-package com.zsd
-
-import com.zsd.P57._
+package com.zsd.s99.bintrees
 
 object P64 extends TreeVisualizingApp {
 
@@ -20,6 +18,8 @@ object P64 extends TreeVisualizingApp {
 
     def layoutBinaryTree: Tree[T] = layoutBinaryTree(tree)
   }
+
+  import P57._
 
   val title = "P64 - Layout a binary tree (1)"
   val tree = fromList(List('n', 'k', 'm', 'c', 'a', 'h', 'g', 'e', 'u', 'p', 's', 'q'))
